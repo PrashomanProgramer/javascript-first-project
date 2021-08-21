@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: 'Rampart One', cursive;
+        }
+        .mainDiv{
+            width: 100%;
+            height: 100vh;
+            position: relative;
+            background: #3498bd;
+        }
+        .centerDiv{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            text-align: center;
+        }
+        h1{
+            margin-bottom: 30px;
+            color: #ecf0f1;
+            text-shadow: 1px 2px 3px #2980b9 ;
+            font-size: 2.1rem;
+            }
+            textarea{
+                background-color: #444;
+            box-shadow: 0 0 1px rgba(0, 0, 0, 0.2);
+            border-radius: 10px 10px 0 0;
+            border:20px solid #34495e;
+            color: white;
+            font-size: 1.3rem;
+            } 
+            .mainbtn{
+                padding: 10px 20px;
+                border-radius: 20px;
+                border: 5px solid #2980b9;
+                background: #ecf0f1;
+                font-size: 1rem;
+                margin-top: 10px;
+            }
+             
+    </style>
+</head>
+<body>
+    <div class="mainDiv">
+        <div class="centerDiv">
+            <h1>Welcome to typing speed test</h1>
+            <h1 id="msg"> </h1>
+            <textarea  id="myWord" cols="100" rows="10" placeholder="Welcome ">
+
+            </textarea>
+            <br>
+            <button id="btn" class="mainbtn">Start</button>
+        </div>
+
+    </div>
+    <script>
+
+
+        const setArray = ["Hello Friend, My name is Prashoman ChakraBarti, I am try frontend developer.","Hope you are haveing fun this is a simple game you can make.",
+        "The Vaccine Alliance is providing immediate funding to health systems.",
+        "Perform vital surveillance and training, and purchase diagnostic tests."];
+
+        const msg = document.getElementById('msg');
+        const typeWord = document.getElementById('myWord');
+        const btn = document.getElementById('btn');
+        let startTime , endTime;
+
+        const   playGame = () =>
+        {
+            let rendomNumber = Math.floor(Math.random()*setArray.length);
+            msg.innerText = setArray[rendomNumber];
+            let date = new Date();
+            startTime = date.getTime();
+            btn.innerText = 'Done';
+
+        }
+            const endGame = () =>
+            {
+                let date = new Date();
+                endTime = date.getTime();
+                let totalTime =Math.floor((endTime - startTime)/1000);
+                console.log(totalTime);
+                
+                let totalStr = typeWord.value;
+                let wordCount = wordCounter (totalStr);
+
+                let speedTime = Math.random(( wordCount / totalTime) * 60);
+                let finalMsg ="You type total word " +totalTime +"s  word per minutes";
+                msg.innerText = finalMsg;
+            }
+            const wordCounter = (str) =>{
+                let respone = str.split("").length;
+                console.log(respone);
+                return respone;
+            }
+
+        btn.addEventListener('click', function(){
+            if(this.innerText == 'Start'){
+                typeWord.disabled = false;
+                playGame();
+            }
+            else if(this.innerText == "Done"){
+                typeWord.disabled = true;
+                btn.innerText = "Start";
+                endGame();
+            }
+        })
+
+    </script>
+</body>
+</html>
